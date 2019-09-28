@@ -75,16 +75,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>find b/BOOK_TITLE</code>, <code>BOOK_TITLE</code> is a parameter which can be used as <code>find b/Harry Potter</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>find t/TITLE</code>, <code>BOOK_TITLE</code> is a parameter which can be used as <code>find t/Harry Potter</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>b/BOOK_TITLE [g/GENRE]</code> can be used as <code>b/Harry Potter g/fiction</code> or as <code>b/Harry Potter</code>.</p>
+<p>Items in square brackets are optional e.g <code>t/TITLE [g/GENRE]</code> can be used as <code>t/Harry Potter g/fiction</code> or as <code>t/Harry Potter</code>.</p>
 </li>
 <li>
 <p>Items with <code>&#8230;&#8203;</code>​ after them can be used multiple times including zero times e.g. <code>[g/GENRE]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>g/fiction</code>, <code>g/fiction g/adventure</code> etc.</p>
 </li>
 <li>
-<p>Parameters can be in any order e.g. if the command specifies <code>b/BOOK_TITLE a/AUTHOR</code>, <code>a/AUTHOR b/BOOK_TITLE</code> is also acceptable.</p>
+<p>Parameters can be in any order e.g. if the command specifies <code>t/TITLE a/AUTHOR</code>, <code>a/AUTHOR t/TITLE</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
@@ -106,7 +106,7 @@ Format: <code>help</code></p>
 <h4 id="locating-books-by-title-code-find-code"><a class="link" href="#locating-books-by-title-code-find-code">3.1.2. Locating books by title: <code>find</code></a></h4>
 <div class="paragraph">
 <p>Shows all relevant books found.<br>
-Format: <code>find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN] [-overdue] [-loaned] [-available]</code></p>
+Format: <code>find [t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN] [-overdue] [-loaned] [-available]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -122,7 +122,7 @@ Format: <code>find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN
 <p>Books matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>harry</code> will return both <code>Harry Potter</code> and <code>Harry Botter</code></p>
 </li>
 <li>
-<p><code>[b/BOOK_TITLE]</code> will be used to search through book titles</p>
+<p><code>[t/TITLE]</code> will be used to search through book titles</p>
 </li>
 <li>
 <p><code>[a/AUTHOR]</code> will be used to search through or filter by authors</p>
@@ -155,7 +155,7 @@ Format: <code>find [b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN
 <div class="ulist">
 <ul>
 <li>
-<p><code>find b/Animal Farm a/George Orwell</code><br>
+<p><code>find t/Animal Farm a/George Orwell</code><br>
 Search for the book titled “Animal Farm” by the author “George Orwell”</p>
 </li>
 <li>
@@ -183,7 +183,7 @@ Format: <code>clear</code></p>
 <h4 id="adding-a-book-code-add-code"><a class="link" href="#adding-a-book-code-add-code">3.1.5. Adding a book: <code>add</code></a></h4>
 <div class="paragraph">
 <p>Adds a new book to library records.<br>
-Format: <code>add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]</code></p>
+Format: <code>add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -203,10 +203,10 @@ A book can have any number of genres (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add b/Harry Botter and the Baby&#8217;s Potty a/Raylei Jolking sn/02010 g/children</code></p>
+<p><code>add t/Harry Botter and the Baby&#8217;s Potty a/Raylei Jolking sn/02010 g/children</code></p>
 </li>
 <li>
-<p><code>add b/Inferno a/Tande sn/24493 g/classic g/epic</code></p>
+<p><code>add t/Inferno a/Tande sn/24493 g/classic g/epic</code></p>
 </li>
 </ul>
 </div>
@@ -250,7 +250,7 @@ Format: <code>delete [INDEX]</code> or <code>delete [sn/BOOK_SN]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find b/harry</code><br>
+<p><code>find t/harry</code><br>
 <code>delete 1</code><br>
 Deletes the 1st book in the results of the <code>find</code> command.</p>
 </li>
@@ -447,8 +447,8 @@ Including <code>-all</code> will return all currently loaned books</p>
 <p><strong>Help</strong> : <code>help</code></p>
 </li>
 <li>
-<p><strong>Find a book</strong> : <code>find [[b/BOOK_TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN]] [-overdue] [-loaned] [-available]</code><br>
-e.g. <code>find b/Animal Farm a/George Orwell</code>, <code>find g/mystery g/children -available</code></p>
+<p><strong>Find a book</strong> : <code>find [[t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/BOOK_SN]] [-overdue] [-loaned] [-available]</code><br>
+e.g. <code>find t/Animal Farm a/George Orwell</code>, <code>find g/mystery g/children -available</code></p>
 </li>
 <li>
 <p><strong>View book info</strong> : <code>info INDEX</code></p>
@@ -457,8 +457,8 @@ e.g. <code>find b/Animal Farm a/George Orwell</code>, <code>find g/mystery g/chi
 <p><strong>Clear results</strong> : <code>clear</code></p>
 </li>
 <li>
-<p><strong>Add a book</strong> : <code>add b/BOOK_TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]</code><br>
-e.g. <code>add b/Harry Botter and the Baby&#8217;s Potty a/Reali Jolking sn/02010 g/children</code></p>
+<p><strong>Add a book</strong> : <code>add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]</code><br>
+e.g. <code>add t/Harry Botter and the Baby&#8217;s Potty a/Reali Jolking sn/02010 g/children</code></p>
 </li>
 <li>
 <p><strong>Delete a book</strong> : <code>delete INDEX</code> or <code>delete sn/BOOK_SN</code></p>
@@ -511,4 +511,4 @@ e.g. <code>loan sn/00201 sn/12929 sn/00203</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-09-27 19:58:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-09-28 04:12:38 UTC</div></div></div></body></html>
