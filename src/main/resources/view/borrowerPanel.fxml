@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+<AnchorPane fx:id = "borrowerPanel"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: #d8dae3#d8dae3;">
+    <children>
+        <ImageView fitHeight="84.0" fitWidth="69.0" layoutX="66.0" layoutY="30.0"
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/Portrait_placeholder.png"/>
+            </image>
+        </ImageView>
+        <Text layoutX="82.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"/>
+        <Text layoutX="31.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Loans: 4"/>
+        <Text layoutX="31.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Unpaid fees: 0"/>
+    </children>
+</AnchorPane>

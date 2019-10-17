@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,53 +11,67 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
 
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="LiBerry" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                  prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1"
-                  xmlns:fx="http://javafx.com/fxml/1">
-        <bottom>
-          <AnchorPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" prefHeight="35.0"
-                      prefWidth="600.0" BorderPane.alignment="CENTER" >
-          </AnchorPane>
-        </bottom>
-        <top>
-          <Pane fx:id="resultDisplayPlaceholder" minHeight="50" prefHeight="50" maxHeight="50"
-                      style="-fx-background-color: C8D3D5;" BorderPane.alignment="CENTER">
-          </Pane>
-        </top>
-        <right>
-          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d8dae3#d8dae3;" BorderPane.alignment="CENTER">
-            <children>
-              <ImageView fitHeight="84.0" fitWidth="69.0" layoutX="66.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                  <Image url="@/images/Portrait_placeholder.png" />
-                </image>
-              </ImageView>
-              <Text layoutX="82.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-              <Text layoutX="31.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loans: 4" />
-              <Text layoutX="31.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unpaid fees: 0" />
-            </children></AnchorPane>
-        </right>
-        <center>
-            <VBox fx:id="bookList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-                <padding>
-                    <Insets top="10" right="10" bottom="10" left="10" />
-                </padding>
-                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-        </center>
-      </BorderPane>
-    </Scene>
-  </scene>
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                        prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1"
+                        xmlns:fx="http://javafx.com/fxml/1">
+                <bottom>
+                    <VBox BorderPane.alignment="CENTER">
+                        <children>
+                            <Pane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
+                                  style="-fx-background-color: C8D3D5;" BorderPane.alignment="CENTER">
+                            </Pane>
+                            <AnchorPane fx:id="commandBoxPlaceholder"
+                                        styleClass="pane-with-border">
+                            </AnchorPane>
+                        </children>
+                    </VBox>
+                </bottom>
+                <top>
+                    <Pane maxHeight="50" minHeight="50" prefHeight="50" style="-fx-background-color: C8D3D5;">
+                        <HBox alignment="CENTER_LEFT" spacing="5" prefHeight="50.0" prefWidth="725.0"
+                              HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1"
+                              xmlns:fx="http://javafx.com/fxml/1">
+                            <Region minWidth="10" maxWidth="10" minHeight="50" maxHeight="50"></Region>
+                            <ImageView fitHeight="50.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@/images/LiBerryLogo.png"/>
+                                </image>
+                            </ImageView>
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mode: Serving">
+                                <font>
+                                    <Font size="17.0"/>
+                                </font>
+                            </Text>
+                        </HBox>
+                    </Pane>
+                </top>
+                <right>
+                    <AnchorPane fx:id="borrowerPanelPlaceHolder" minWidth="200"></AnchorPane>
+                </right>
+                <center>
+                    <VBox fx:id="bookList" minWidth="340" prefWidth="340" styleClass="pane-with-border"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="10" left="10" right="10" top="10"/>
+                        </padding>
+                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </center>
+            </BorderPane>
+        </Scene>
+    </scene>
 </fx:root>
