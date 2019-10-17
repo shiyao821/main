@@ -60,7 +60,7 @@
                     </Pane>
                 </top>
                 <right>
-                    <AnchorPane fx:id="borrowerPanelPlaceHolder" minWidth="200"></AnchorPane>
+                    <AnchorPane fx:id="borrowerPanelPlaceHolder"></AnchorPane>
                 </right>
                 <center>
                     <VBox fx:id="bookList" minWidth="340" prefWidth="340" styleClass="pane-with-border"

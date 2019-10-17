@@ -3,10 +3,10 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -14,7 +14,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.borrower.Borrower;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -23,6 +22,9 @@ import seedu.address.model.borrower.Borrower;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+
+    // new
+    private static final double BOOK_BORROWER_WIDTH_RATIO = 0.6;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -46,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane borrowerPanelPlaceHolder;
+
+    @FXML
+    private VBox bookList;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -78,6 +83,8 @@ public class MainWindow extends UiPart<Stage> {
 
         borrowerPanel = new BorrowerPanel();
         borrowerPanelPlaceHolder.getChildren().add(borrowerPanel.getRoot());
+        double borrowerPanelWidth = primaryStage.getWidth() * (1 - BOOK_BORROWER_WIDTH_RATIO);
+        borrowerPanel.setSize(500, borrowerPanelWidth);
     }
 
     /**
