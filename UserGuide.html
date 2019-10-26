@@ -435,10 +435,8 @@ Edits the name of the borrower to be <code>Betsy Crower</code></p>
 <div class="paragraph">
 <p>Loan book(s) by their serial number<br>
 Format: <code>loan sn/BOOK_SN</code><br>
-Format: <code>loan sn/BOOK_SN&#8230;&#8203;</code> - Coming in v2.0</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
+Format: <code>loan sn/BOOK_SN [sn/BOOK_SN]&#8230;&#8203;</code> - Coming in v2.0
+Examples:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -451,6 +449,15 @@ Loans the book with serial number B00041</p>
 Loans the books with serial numbers B00201, B02929 and B00203</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Upon loaning a book, a printable loan slip in pdf format will be generated.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LoanSlip.png" alt="LoanSlip" width="250">
+</div>
+<div class="title">Figure 1. Printable PDF version of a Loan Slip</div>
 </div>
 </div>
 <div class="sect3">
@@ -544,6 +551,9 @@ Reserves the book with serial number <code>sn/B02422</code> for the currently se
 <div class="sect1">
 <h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Commands applicable to both <strong>Normal</strong> and <strong>Serve</strong> mode:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -592,6 +602,9 @@ e.g. <code>register n/matt p/83938249 e/matt@damon.com</code></p>
 </ul>
 </div>
 <hr>
+<div class="paragraph">
+<p>Commands only applicable in <strong>serve mode</strong>:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -624,4 +637,4 @@ e.g. <code>loan sn/B00201</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-25 12:41:41 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-26 08:33:12 UTC</div></div></div></body></html>
