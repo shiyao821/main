@@ -197,10 +197,10 @@ The following table shows the format used to describe each command.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>find t/TITLE</code>, <code>BOOK_TITLE</code> is a parameter which can be used as <code>find t/Harry Potter</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>find t/TITLE</code>, <code>TITLE</code> is a parameter which can be used as <code>find t/Harry Potter</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g. <code>t/TITLE [g/GENRE]</code> can be used as <code>t/Harry Potter g/fiction</code> or as <code>t/Harry Potter</code>.</p>
+<p>Items in square brackets are optional. E.g. <code>t/TITLE [g/GENRE]</code> can be used as <code>t/Harry Potter g/fiction</code> or as <code>t/Harry Potter</code>.</p>
 </li>
 <li>
 <p>Curly brackets indicate that at least 1 of the optional parameters have to be given, e.g. <code>{ [t/TITLE] [a/AUTHOR] }</code> can be used as <code>t/Harry Potter</code></p>
@@ -230,13 +230,13 @@ Format: <code>find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/B
 <p>The search is case insensitive. e.g <code>harry</code> will match <code>Harry</code></p>
 </li>
 <li>
-<p>Partial words will also be matched e.g. <code>Har</code> will match <code>Harry</code></p>
+<p>When searching by book titles and authors, partial words will also be matched e.g. <code>Har</code> will match <code>Harry</code>, <code>J</code> will match <code>J K Rowling</code> and <code>Jin Yong</code></p>
 </li>
 <li>
 <p>Books matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>harry</code> will return both <code>Harry Potter</code> and <code>Harry Botter</code></p>
 </li>
 <li>
-<p><code>[NUMBER]</code> will list this <code>NUMBER</code> of books instead</p>
+<p><code>[NUMBER]</code> will limit the search to <code>NUMBER</code> books</p>
 </li>
 <li>
 <p><code>[t/TITLE]</code> will be used to search through book titles</p>
@@ -252,7 +252,8 @@ Format: <code>find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/B
 </li>
 <li>
 <p>Only 1 of the following 3 flags can be used</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><code>[-overdue]</code> will only show overdue books</p>
 </li>
@@ -262,9 +263,13 @@ Format: <code>find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/B
 <li>
 <p><code>[-available]</code> will only show available books</p>
 </li>
+</ul>
+</div>
+</li>
 <li>
 <p>Adding one of the following will sort the books such that:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p><code>[-rated]</code> will list the top 10 highly rated books <strong> - Coming in v2.0</strong></p>
 </li>
@@ -276,7 +281,34 @@ Format: <code>find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]&#8230;&#8203; [sn/B
 </li>
 </ul>
 </div>
+</li>
+</ul>
 </div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Inputs for <code>g/GENRE</code> is automatically capitalized.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>t/TITLE</code> and <code>a/AUTHOR</code> are matched by partial spellings. Search <code>t/phil</code> if you forgot how to spell 'Philosopher'!
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -293,10 +325,17 @@ Searches for children mystery books that are not on loan and show the first 3 en
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><strong>Purpose of Command</strong>:<br>
-This command allows users to search through the entire catalog.</p>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Purpose of Command</strong>:<br>
+This command allows users to search through the entire catalog._</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -352,7 +391,7 @@ e.g. <code>register n/matt p/83938249 e/matt@damon.com</code></p>
 <p><strong>Exit</strong> : <code>exit</code></p>
 </li>
 <li>
-<p><strong>Toggle night mode</strong>: <code>toggleui</code> <strong> - Coming in v2.0</strong></p>
+<p><strong>Toggle UI theme</strong>: <code>toggleui</code></p>
 </li>
 <li>
 <p><strong>Rate a book</strong> : <code>rate INDEX r/RATING</code> <strong> - Coming in v2.0</strong></p>
@@ -409,7 +448,7 @@ e.g. <code>loan sn/B00201</code></p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Book Finding is the main feature that I have implemented in LiBerry. The following is an extract from the Developer Guide</p>
+<p>Book Finding is the main feature that I have implemented in LiBerry. The following is an extract from the Developer Guide that describes and explains the feature.</p>
 </div>
 <hr>
 <div class="sect2">
@@ -432,7 +471,8 @@ then extracts all the values from the <code>ArgumentMultimap</code> prefix by pr
 such as <code>setTitle()</code>, <code>setGenres()</code> <code>setLoanStatus</code> etc.</p>
 </div>
 <div class="paragraph">
-<p>The diagram below shows a simplifed execution sequence of a 'find t/Animal Farm a/George' command string.</p>
+<p>The diagram below shows a simplified command generation sequence of a 'find t/Animal Farm a/George' command,
+starting from the CatalogParser</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -445,11 +485,11 @@ such as <code>setTitle()</code>, <code>setGenres()</code> <code>setLoanStatus</c
 there is no need to filter for that field. Below is an example.</p>
 </div>
 <div class="paragraph">
-<div class="title">Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object</div>
 <p><span class="image"><img src="../images/BookPredicateEmptyObjectDiagram.png" alt="BookPredicateEmptyObjectDiagram" height="300"></span>
 <span class="image"><img src="../images/BookPredicateFilledObjectDiagram.png" alt="BookPredicateFilledObjectDiagram" height="300"></span></p>
 </div>
 <div class="paragraph">
+<div class="title">Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object</div>
 <p>The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
 showing up to 5 books only. Notice that the rest of the fields in the object are null.</p>
 </div>
@@ -538,4 +578,4 @@ filtered books does not have an API that sets a hard limit on the number of book
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 08:45:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-07 16:21:59 UTC</div></div></div></body></html>
