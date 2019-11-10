@@ -1228,12 +1228,9 @@ methods <code>Model#setBook(bookToBeReturned, returnedBook)</code>, <code>Model#
 <code>Model#updateLoan(loanToBeReturned, returnedLoan)</code>, which updates the <code>Catalog</code>, <code>BorrowerRecords</code> and <code>LoanRecords</code>
 in the model respectively.</p>
 </div>
-<div class="paragraph">
-<p>As seen in the diagram, firstly, a list of books that can be renewed is obtained through the <code>RenewCommand#getRenewingBooks(model)</code> method.
-For each <code>Loan</code> object associated with each book, a new instance is created with its original <code>renewCount</code> incremented by 1 and its
-<code>dueDate</code> extended by the renew period set in the user settings. This is done through the method call to <code>Loan#renewLoan(extendedDueDate)</code>.
-The call to <code>Book#renewBook(renewedLoan)</code> then returns a new instance of this book with its loan object updated.</p>
 </div>
+<div class="sect4">
+<h5 id="paying-fines"><a class="link" href="#paying-fines">Paying fines</a></h5>
 <div class="paragraph">
 <p>When a fine amount is successfully paid by a borrower through the call to <code>Model#payFines(amountInCents)</code>,
 the <code>remainingFineAmount</code> and <code>paidFineAmount</code> of the loans in the borrower&#8217;s <code>returnedLoanList</code> is updated accordingly.
@@ -1539,10 +1536,14 @@ system is as followed:<br></p>
 <div class="paragraph">
 <p>Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.</p>
 </div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/RegisterBorrowerActivityDiagram.png" alt="RegisterBorrowerActivityDiagram" width="270">
+</div>
+<div class="title">Figure 29. Activity Diagram for registering a borrower</div>
+</div>
 <div class="paragraph">
-<div class="title">Activity Diagram for registering a borrower</div>
-<p><span class="image"><img src="images/RegisterBorrowerActivityDiagram.png" alt="RegisterBorrowerActivityDiagram" width="270"></span>
-&#160;<br></p>
+<p>&#160;<br></p>
 </div>
 <div class="paragraph">
 <p>Given below is a class diagram of a book.</p>
@@ -1551,7 +1552,7 @@ system is as followed:<br></p>
 <div class="content">
 <img src="images/BorrowerClassDiagram.png" alt="BorrowerClassDiagram" width="400">
 </div>
-<div class="title">Figure 29. Class Diagram for <code>Borrower</code></div>
+<div class="title">Figure 30. Class Diagram for <code>Borrower</code></div>
 </div>
 <div class="paragraph">
 <p>&#160;<br></p>
@@ -1563,7 +1564,7 @@ system is as followed:<br></p>
 <div class="content">
 <img src="images/BorrowerObjectDiagram.png" alt="BorrowerObjectDiagram" width="300">
 </div>
-<div class="title">Figure 30. Object Diagram for <code>Borrower</code></div>
+<div class="title">Figure 31. Object Diagram for <code>Borrower</code></div>
 </div>
 <div class="paragraph">
 <p>&#160;<br></p>
@@ -1922,13 +1923,109 @@ I submit a book title query</p></td>
 <div class="content">
 <img src="images/UseCases.png" alt="UseCases" width="330">
 </div>
-<div class="title">Figure 31. General Use Cases for LiBerry</div>
+<div class="title">Figure 32. General Use Cases for LiBerry</div>
 </div>
 <div class="paragraph">
 <p>&#160;<br></p>
 </div>
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is <code>LiBerry</code> and the <strong>Actor</strong> is the <code>user</code>, who is a librarian, unless specified otherwise)</p>
+</div>
+<h4 id="use-case-help-borrower-find-books-of-a-particular-title-author" class="discrete">Use case: Help borrower find books of a particular title/author</h4>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Borrower comes to user requesting for a book of a particular title/from a particular author.</p>
+</li>
+<li>
+<p>User enters that book&#8217;s title/author name.</p>
+</li>
+<li>
+<p>LiBerry searches through all books with an author matching what is entered.</p>
+</li>
+<li>
+<p>LiBerry displays books found.</p>
+</li>
+<li>
+<p>User informs borrower whether book exists, including how many copies</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. Borrower forgets the exact spelling of the title/author he is looking for.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. User enters partial spelling of the title/author.</p>
+</li>
+<li>
+<p>Use case returns to step 3.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2b. User wishes to display only the first N number of books.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. User specifies the maximum number of books to display on top of his search conditions.</p>
+</li>
+<li>
+<p>Use case returns to step 3. However, LiBerry displays only the first N number of books in step 4.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h4 id="use-case-generate-the-list-of-available-loaned-out-overdue-books" class="discrete">Use case: Generate the list of available/loaned out/overdue books</h4>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User enters command to show all available/loaned out/overdue books.</p>
+</li>
+<li>
+<p>LiBerry searches through catalog to create a list of available/loaned out/overdue books.</p>
+</li>
+<li>
+<p>LiBerry displays the list of all available/loaned out/overdue books.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. User wishes to display only the first N number of books.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. User specifies the maximum number of books to display on top of his search conditions.</p>
+</li>
+<li>
+<p>Use case returns to step 2. However, LiBerry displays only the first N number of books in step 4.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <h4 id="use-case-add-a-book" class="discrete">Use case: Add a book</h4>
 <div class="paragraph">
@@ -1941,17 +2038,17 @@ I submit a book title query</p></td>
 </li>
 <li>
 <p>LiBerry shows a success message</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Use case ends.</p>
-</div>
-<div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
-<div class="ulist">
-<ul>
+<div class="ulist none">
+<ul class="none">
 <li>
 <p>1a. The arguments provided are invalid.</p>
 <div class="ulist none">
@@ -1997,7 +2094,7 @@ I submit a book title query</p></td>
 </li>
 </ul>
 </div>
-<h4 id="use-case-help-borrower-find-books-of-a-particular-title-author" class="discrete">Use case: Help borrower find books of a particular title/author</h4>
+<h4 id="use-case-delete-a-book" class="discrete">Use case: Delete a book</h4>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2013,8 +2110,10 @@ I submit a book title query</p></td>
 <p>User requests to delete a specific book in the list</p>
 </li>
 <li>
-<p>LiBerry deletes the book
-Use case ends.</p>
+<p>LiBerry deletes the book</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -2024,31 +2123,25 @@ Use case ends.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. Borrower forgets the exact spelling of the title/author he is looking for.</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. User enters partial spelling of the title/author.</p>
-</li>
-<li>
-<p>Use case returns to step 3.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>2b. User wishes to display only the first N number of books.</p>
+<p>2a. The list is empty.</p>
 <div class="paragraph">
 <p>Use case ends</p>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 </li>
 <li>
 <p>3a. The given index is invalid.</p>
-</li>
+<div class="ulist none">
+<ul class="none">
 <li>
-<p>1a. User wishes to display only the first N number of books.</p>
+<p>3a1. LiBerry shows an error message.</p>
 <div class="paragraph">
 <p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 </ul>
@@ -2395,8 +2488,8 @@ Use case ends.</p>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
-<div class="ulist">
-<ul>
+<div class="ulist none">
+<ul class="none">
 <li>
 <p>4a. The book cannot be renewed.</p>
 <div class="ulist none">
@@ -2441,8 +2534,8 @@ Use case ends.</p>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
-<div class="ulist">
-<ul>
+<div class="ulist none">
+<ul class="none">
 <li>
 <p>4a. The borrower has no outstanding fines.</p>
 <div class="ulist none">
@@ -2457,6 +2550,26 @@ Use case ends.</p>
 </div>
 </li>
 </ul>
+</div>
+<h4 id="use-case-changing-gui-to-dark-mode" class="discrete">Use case: Changing GUI to dark mode</h4>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sun sets and room gets dark</p>
+</li>
+<li>
+<p>User enters command to change GUi</p>
+</li>
+<li>
+<p>LiBerry changes GUI to dark mode</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -2852,7 +2965,7 @@ Expected: No book is renewed. An error stating not in Serve mode is shown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="paying-fines"><a class="link" href="#paying-fines">8.6.7. Paying fines</a></h4>
+<h4 id="paying-fines-2"><a class="link" href="#paying-fines-2">8.6.7. Paying fines</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2890,7 +3003,7 @@ Expected: Same as previous test case (<code>pay $2</code>).</p>
 </li>
 <li>
 <p>Other incorrect pay commands to try: <code>pay</code>, <code>pay xyz</code>, <code>pay 1</code><br>
-Expected: Fin amount in borrower panel remains the same. Error details shown in the command result display.</p>
+Expected: Fine amount in borrower panel remains the same. Error details shown in the command result display.</p>
 </li>
 </ol>
 </div>
@@ -2921,6 +3034,82 @@ Change given: $0.90" appears on the command results display. The borrower panel 
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="toggling-ui-theme"><a class="link" href="#toggling-ui-theme">8.6.8. Toggling UI theme</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Converting between light and dark mode</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>testcase: <code>toggleui</code><br>
+Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows</p>
+</li>
+<li>
+<p>Testcase: <code>toggleui</code> (again)<br>
+Expected: The main GUI switches back to light mode, including those of all other sub-windows</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-10 10:40:31 UTC</div></div></div></body></html>
+<div class="sect3">
+<h4 id="removing-or-corrupting-data"><a class="link" href="#removing-or-corrupting-data">8.6.9. Removing or corrupting data</a></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Removing data</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modifty the sample data.</p>
+</li>
+<li>
+<p>Enter the '/data' directory, which is in the same directory as the Jar file.</p>
+</li>
+<li>
+<p>Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).</p>
+</li>
+<li>
+<p>Launch the LiBerry App.</p>
+</li>
+<li>
+<p>Expected: The app should start with sample data once again.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Corrupting data</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.</p>
+</li>
+<li>
+<p>Enter the '/data' directory, which is in the same directory as the Jar file.</p>
+</li>
+<li>
+<p>Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.</p>
+</li>
+<li>
+<p>Save the modified data files.</p>
+</li>
+<li>
+<p>Launch the LiBerry App.</p>
+</li>
+<li>
+<p>Expected: The app should start with sample data once again.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-10 12:32:09 UTC</div></div></div></body></html>
