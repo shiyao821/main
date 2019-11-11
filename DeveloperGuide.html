@@ -50,7 +50,6 @@
 <li><a href="#non-functional-requirements">8.4. Non Functional Requirements</a></li>
 <li><a href="#glossary">8.5. Glossary</a></li>
 <li><a href="#instructions-for-manual-testing">8.6. Instructions for Manual Testing</a></li>
-<li><a href="#redoing-undone-command">8.7. Redoing undone command</a></li>
 </ul>
 </li>
 </ul>
@@ -741,13 +740,13 @@ It contains a undo/redo command history, stored internally as an
 <div class="ulist">
 <ul>
 <li>
-<p><code>CommandHistory#commit()</code>&#8201;&#8212;&#8201;Saves the current reversible command in its command history.</p>
+<p><code>CommandHistory#commit()</code>&#8201;&#8212;&#8201;Saves <code>ReversibleCommand</code> in command history.</p>
 </li>
 <li>
-<p><code>CommandHistory#getUndoCommand()</code>&#8201;&#8212;&#8201;Returns the undo command for the most recent reversible command.</p>
+<p><code>CommandHistory#getUndoCommand()</code>&#8201;&#8212;&#8201;Returns command to undo <code>ReversibleCommand</code>.</p>
 </li>
 <li>
-<p><code>CommandHistory#getRedoCommand()</code>&#8201;&#8212;&#8201;Returns the redo command for the most recent undone command.</p>
+<p><code>CommandHistory#getRedoCommand()</code>&#8201;&#8212;&#8201;Returns command to redo <code>ReversibleCommand</code>.</p>
 </li>
 </ul>
 </div>
@@ -798,13 +797,13 @@ these three operations:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>ReversibleCommand#getUndoCommand()</code>&#8201;&#8212;&#8201;Returns a command that undoes the <code>ReversibleCommand</code>.</p>
+<p><code>ReversibleCommand#getUndoCommand()</code>&#8201;&#8212;&#8201;Returns command that undoes the <code>ReversibleCommand</code>.</p>
 </li>
 <li>
-<p><code>ReversibleCommand#getRedoCommand()</code>&#8201;&#8212;&#8201;Returns a command that redoes the <code>ReversibleCommand</code>.</p>
+<p><code>ReversibleCommand#getRedoCommand()</code>&#8201;&#8212;&#8201;Returns command that redoes the <code>ReversibleCommand</code>.</p>
 </li>
 <li>
-<p><code>ReversibleCommand#getCommandResult()</code>&#8201;&#8212;&#8201;Returns the command result of the <code>ReversibleCommand</code>.</p>
+<p><code>ReversibleCommand#getCommandResult()</code>&#8201;&#8212;&#8201;Returns command result of the <code>ReversibleCommand</code>.</p>
 </li>
 </ul>
 </div>
@@ -899,7 +898,7 @@ return an error to the user rather than attempting to perform the undo.
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
+<img src="images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram" width="600">
 </div>
 <div class="title">Figure 18. Sequence diagram for undo command</div>
 </div>
@@ -970,7 +969,7 @@ desktop applications follow.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/CommitActivityDiagram.png" alt="CommitActivityDiagram" width="250">
+<img src="images/CommitActivityDiagram.png" alt="CommitActivityDiagram" width="200">
 </div>
 <div class="title">Figure 21. Activity diagram for committing Command</div>
 </div>
@@ -1634,8 +1633,45 @@ the list of borrowers, we add 1 and set it as the borrower ID of the new borrowe
 </div>
 <div class="paragraph">
 <p>However, we decided to implement a new function, which is to allow borrowers to be removed from the library system.
-Therefore, this method does not work anymore. So we decided to change to generate the new ID based on the first-found
-available ID.</p>
+Therefore, this method does not work anymore.</p>
+</div>
+<div class="paragraph">
+<p>So we proposed the following alternatives.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Use a TreeMap to store current Borrower ID</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will be efficient in generating the next valid borrower ID.</p>
+</li>
+<li>
+<p>Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (Current choice):</strong> Iterate from the beginning to obtain the first unused Borrower ID.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will be easy to implement.</p>
+</li>
+<li>
+<p>Cons: Will be inefficient once the number of borrowers grow.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>We have decided to go with Alternative 2</strong> and keep it simple to get in line with the <strong>KISS</strong> (Keep it Simple, Stupid) principle of programming.
+Also, we are expecting the number of borrowers to be relatively small (less than 10000) since our target users are small
+community library. Therefore the inefficiency will not be significant.</p>
 </div>
 </div>
 </div>
@@ -3298,9 +3334,8 @@ that payments are not refundable.
 </table>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="redoing-undone-command"><a class="link" href="#redoing-undone-command">8.7. Redoing undone command</a></h3>
+<div class="sect3">
+<h4 id="redoing-undone-command"><a class="link" href="#redoing-undone-command">8.6.12. Redoing undone command</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3336,8 +3371,9 @@ will be displayed in the result display.</p>
 </li>
 </ol>
 </div>
+</div>
 <div class="sect3">
-<h4 id="serving-a-borrower"><a class="link" href="#serving-a-borrower">8.7.1. Serving a borrower</a></h4>
+<h4 id="serving-a-borrower"><a class="link" href="#serving-a-borrower">8.6.13. Serving a borrower</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3395,7 +3431,7 @@ Expected: Borrower is not served. An error stating the correct format of a borro
 </div>
 </div>
 <div class="sect3">
-<h4 id="unregistering-a-borrower"><a class="link" href="#unregistering-a-borrower">8.7.2. Unregistering a borrower</a></h4>
+<h4 id="unregistering-a-borrower"><a class="link" href="#unregistering-a-borrower">8.6.14. Unregistering a borrower</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3470,7 +3506,7 @@ Expected: Borrower is not served. An error stating the correct format of a borro
 </div>
 </div>
 <div class="sect3">
-<h4 id="toggling-ui-theme"><a class="link" href="#toggling-ui-theme">8.7.3. Toggling UI theme</a></h4>
+<h4 id="toggling-ui-theme"><a class="link" href="#toggling-ui-theme">8.6.15. Toggling UI theme</a></h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3491,60 +3527,6 @@ Expected: The main GUI switches back to light mode, including those of all other
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="removing-or-corrupting-data"><a class="link" href="#removing-or-corrupting-data">8.7.4. Removing or corrupting data</a></h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Removing data</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.</p>
-</li>
-<li>
-<p>Enter the '/data' directory, which is in the same directory as the Jar file.</p>
-</li>
-<li>
-<p>Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).</p>
-</li>
-<li>
-<p>Launch the LiBerry App.</p>
-</li>
-<li>
-<p>Expected: The app should start with sample data once again.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Corrupting data</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.</p>
-</li>
-<li>
-<p>Enter the '/data' directory, which is in the same directory as the Jar file.</p>
-</li>
-<li>
-<p>Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.</p>
-</li>
-<li>
-<p>Save the modified data files.</p>
-</li>
-<li>
-<p>Launch the LiBerry App.</p>
-</li>
-<li>
-<p>Expected: The app should start with sample data once again.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
 </div>
 </div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-10 15:18:49 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 09:40:35 UTC</div></div></div></body></html>
